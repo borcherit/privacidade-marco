@@ -34,13 +34,13 @@ mudou foi o CSS ou a moldura da página.
 dart run tool/build.dart --check    # sai 1 se a página atrasou em relação à fonte
 ```
 
-## Antes do primeiro deploy
+## Antes do deploy
 
-- [ ] **Preencher o e-mail de contato** no fim de `../marco/docs/privacidade.md`
-      (hoje está `<PREENCHER: e-mail de contato público>`) e regenerar. O endereço
-      fica **público**: convém um criado para isso, não um pessoal nem o
-      corporativo. O gerador avisa enquanto o placeholder estiver lá.
-- [ ] Conferir a data de **Última atualização** no topo do texto.
+- [ ] Conferir a data de **Última atualização** no topo do texto — ela é a data do
+      documento, e um revisor de loja compara.
+- [ ] Conferir que o e-mail de contato no fim do texto é o endereço público criado
+      para isso, e não um pessoal ou corporativo. O gerador recusa-se a passar em
+      silêncio enquanto ele for um placeholder (`PREENCHER`).
 
 ## Cloudflare Pages
 
