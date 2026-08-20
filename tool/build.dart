@@ -1,21 +1,24 @@
 /// Gera a página pública da política de privacidade a partir do Markdown.
 ///
-/// **A fonte de verdade do texto é o repositório do app**, em
+/// **A fonte de verdade do texto está no repositório do app**, em
 /// `docs/privacidade.md`: é lá que a política é escrita e revisada junto com o
-/// que o app faz. Este repositório guarda uma cópia (`privacidade.md`) e o HTML
-/// publicado (`public/index.html`) — os dois são **saída**, não fonte.
+/// que o app faz. Este repositório guarda só a **saída** — `public/index.html`,
+/// que é o que vai ao ar.
 ///
 /// Existe para o texto legal não viver em duas versões. Um HTML escrito à mão ao
-/// lado de um Markdown com o mesmo conteúdo divergem na primeira correção que
-/// alguém faz só de um lado, e a política é justamente o documento em que
-/// divergir é caro.
+/// lado de um Markdown com o mesmo conteúdo divergem na primeira correção feita
+/// só de um lado, e a política é justamente o documento em que divergir é caro.
+///
+/// O preço da escolha: **regenerar exige o repositório do app ao lado deste**
+/// (ver [defaultSource]). Um clone isolado não refaz a página — mas também não
+/// precisa, porque o HTML vai commitado e o deploy não roda build.
 ///
 /// Uso:
 ///
 /// ```
-/// dart run tool/build.dart                 # regenera a partir da cópia local
-/// dart run tool/build.dart --source=../marco/docs/privacidade.md
-/// dart run tool/build.dart --check         # nada é escrito; sai 1 se atrasou
+/// dart run tool/build.dart            # regenera public/index.html
+/// dart run tool/build.dart --check    # nada é escrito; sai 1 se a página atrasou
+/// dart run tool/build.dart --source=outro/caminho/privacidade.md
 /// ```
 library;
 
@@ -23,11 +26,13 @@ import 'dart:io';
 
 import 'package:markdown/markdown.dart' as md;
 
-/// A cópia local do texto, que o HTML publicado espelha.
-const localSource = 'privacidade.md';
+/// O Markdown da política, no repositório do app. Caminho relativo porque os
+/// dois repositórios são irmãos na mesma pasta de trabalho; `--source` cobre
+/// quem os tiver em outro lugar.
+const defaultSource = '../marco/docs/privacidade.md';
 
-/// O que o Cloudflare Pages publica. Tudo fora daqui — `pubspec.yaml`, `tool/`,
-/// este comentário — fica fora do ar.
+/// O que o Cloudflare publica. Tudo fora daqui — `pubspec.yaml`, `tool/`, este
+/// comentário — fica fora do ar.
 const outputDir = 'public';
 
 /// O placeholder do e-mail de contato. A política é pública e o campo fica
@@ -41,50 +46,40 @@ void main(List<String> args) {
     orElse: () => '',
   );
   final sourcePath = sourceArg.isEmpty
-      ? localSource
+      ? defaultSource
       : sourceArg.substring('--source='.length);
 
   final source = File(sourcePath);
   if (!source.existsSync()) {
-    stderr.writeln('Não achei o Markdown da política em "$sourcePath".');
+    stderr.writeln(
+      'Não achei o Markdown da política em "$sourcePath".\n'
+      'A fonte fica no repositório do app; clone-o ao lado deste ou passe '
+      '--source=<caminho>.',
+    );
     exit(2);
   }
   final markdown = source.readAsStringSync();
   final page = renderPage(markdown);
-
-  final localCopy = File(localSource);
   final output = File('$outputDir/index.html');
 
   if (check) {
-    final stale = [
-      if (readOrNull(localCopy) != markdown) localSource,
-      if (readOrNull(output) != page) output.path,
-    ];
     warnAboutPlaceholder(markdown);
-    if (stale.isEmpty) {
-      stdout.writeln('Em dia com "$sourcePath".');
+    final current = output.existsSync() ? output.readAsStringSync() : null;
+    if (current == page) {
+      stdout.writeln('${output.path} está em dia com "$sourcePath".');
       return;
     }
     stderr.writeln(
-      'Atrasado em relação a "$sourcePath": ${stale.join(', ')}.\n'
-      'Rode `dart run tool/build.dart --source=$sourcePath`.',
+      '${output.path} atrasou em relação a "$sourcePath".\n'
+      'Rode `dart run tool/build.dart`.',
     );
     exit(1);
   }
 
-  // A cópia local só é reescrita quando a fonte é outra: rodar sem `--source`
-  // regenera o HTML sem mexer no texto.
-  if (source.absolute.path != localCopy.absolute.path) {
-    localCopy.writeAsStringSync(markdown);
-    stdout.writeln('$localSource ← $sourcePath');
-  }
   output.writeAsStringSync(page);
-  stdout.writeln('${output.path} gerado.');
+  stdout.writeln('${output.path} ← $sourcePath');
   warnAboutPlaceholder(markdown);
 }
-
-String? readOrNull(File file) =>
-    file.existsSync() ? file.readAsStringSync() : null;
 
 void warnAboutPlaceholder(String markdown) {
   if (!markdown.contains(contactPlaceholder)) return;
@@ -96,9 +91,11 @@ void warnAboutPlaceholder(String markdown) {
 
 /// O Markdown vira o corpo da página; o resto é a moldura, que não muda.
 ///
-/// `gitHubWeb` é o conjunto de extensões que traz **tabela** — a política tem
-/// duas (permissões e o que o app não faz), e sem ele elas sairiam como
-/// parágrafos com barras verticais no meio.
+/// `gitHubWeb` é o conjunto de extensões que traz **tabela** — a política tem uma
+/// (as permissões e o porquê de cada uma), e sem ele ela sairia como parágrafo
+/// com barras verticais no meio. É ele também que transforma e-mail solto em
+/// `mailto:`, e é por isso que o Markdown escreve o endereço puro: link explícito
+/// sairia como `<a>` dentro de `<a>`.
 String renderPage(String markdown) {
   final body = md.markdownToHtml(
     markdown,
