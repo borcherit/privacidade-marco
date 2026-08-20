@@ -1,0 +1,126 @@
+/* Paleta do app (lib/presentation/shared/app_theme.dart). Obsidiana, que é o
+   tema padrão do marco, é o padrão daqui também; Cotton entra quando o sistema
+   pede claro. Cantos retos e sombra dura de propósito: o app é pixel art, e uma
+   página arredondada e macia não pareceria a mesma coisa. */
+:root {
+  --window: #1f2330;
+  --deep: #15171f;
+  --sky: #121420;
+  --border: #3a4055;
+  --text: #e8ebf3;
+  --muted: #8f96ab;
+  --accent: #8a7ce6;
+  --shadow: rgba(0, 0, 0, 0.5);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --window: #fffdff;
+    --deep: #efe7f7;
+    --sky: #f3e9fb;
+    --border: #5a4b6b;
+    --text: #4d3f60;
+    --muted: #9a8fb0;
+    --accent: #b48ee0;
+    --shadow: rgba(90, 75, 107, 0.18);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 2rem 1rem 3rem;
+  background: var(--sky);
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial,
+    sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+.janela {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 2rem clamp(1rem, 4vw, 2.5rem);
+  background: var(--window);
+  border: 2px solid var(--border);
+  box-shadow: 6px 6px 0 var(--shadow);
+}
+
+h1 {
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.6rem, 5vw, 2.1rem);
+  line-height: 1.2;
+}
+
+h2 {
+  margin: 2.5rem 0 0.75rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid var(--border);
+  font-size: 1.25rem;
+}
+
+p,
+ul,
+table {
+  margin: 0 0 1rem;
+}
+
+ul {
+  padding-left: 1.25rem;
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+strong {
+  color: var(--text);
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.15em;
+}
+
+code {
+  padding: 0.1em 0.35em;
+  background: var(--deep);
+  border: 1px solid var(--border);
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 0.9em;
+  overflow-wrap: anywhere;
+}
+
+/* A política tem uma tabela de permissões, e é ela que quebra em tela estreita:
+   o contêiner rola em vez de a página inteira rolar de lado. */
+table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+th,
+td {
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--deep);
+}
+
+footer {
+  max-width: 46rem;
+  margin: 1.5rem auto 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+}

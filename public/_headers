@@ -1,0 +1,9 @@
+# Cabeçalhos que o Cloudflare Pages aplica ao servir (este arquivo não vai ao ar).
+# A página é HTML, CSS e um PNG, todos do próprio domínio: a CSP diz exatamente
+# isso, e qualquer coisa a mais — script, fonte remota, iframe — é bloqueada.
+/*
+  Content-Security-Policy: default-src 'none'; img-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'
+  Referrer-Policy: no-referrer
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Permissions-Policy: geolocation=(), camera=(), microphone=()

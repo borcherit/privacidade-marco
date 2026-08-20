@@ -1,0 +1,13 @@
+name: privacidade_marco
+description: Página pública da política de privacidade do marco.
+publish_to: 'none'
+version: 1.0.0
+
+environment:
+  sdk: ^3.9.0
+
+dev_dependencies:
+  # Converte a política de Markdown para HTML (`tool/build.dart`). Fica em
+  # `dev_dependencies` porque nada disto sobe: o deploy publica `public/`, que já
+  # é HTML pronto — o Cloudflare Pages não roda build nenhum.
+  markdown: ^7.3.0
