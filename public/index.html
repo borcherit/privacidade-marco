@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Política de Privacidade — marco</title>
-<meta name="description" content="O marco não coleta dados: tudo o que você cria fica no seu aparelho.">
+<meta name="description" content="O marco funciona por completo sem conta, e sem conta nada sai do seu aparelho. Com conta, ele sincroniza as suas metas entre aparelhos.">
 <meta name="color-scheme" content="dark light">
 <link rel="icon" href="/icone.png" type="image/png">
 <link rel="stylesheet" href="/estilo.css">
@@ -13,35 +13,134 @@
 <body>
 <main class="janela">
 <h1 id="poltica-de-privacidade--marco">Política de Privacidade — marco</h1>
-<p><strong>Última atualização:</strong> 20 de agosto de 2026</p>
+<p><strong>Última atualização:</strong> 10 de setembro de 2026</p>
 <p>O <code>marco</code> é um aplicativo de metas e rotinas pessoais. Esta política explica o que
-acontece com os seus dados quando você o usa. O resumo é curto: <strong>nada do que você
-escreve no app sai do seu aparelho.</strong></p>
-<h2 id="o-que-o-app-guarda">O que o app guarda</h2>
-<p>Tudo o que você cria fica <strong>apenas no seu aparelho</strong>, dentro da área reservada ao
-aplicativo:</p>
+acontece com os seus dados quando você o usa.</p>
+<p>O resumo é curto: <strong>o app funciona por completo sem conta, e sem conta nada sai do
+seu aparelho.</strong> Criar uma conta é opcional, serve para sincronizar as suas metas
+entre aparelhos, e é o único caso em que algum dado seu vai para a nuvem.</p>
+<h2 id="dois-modos-e-a-diferena-entre-eles">Dois modos, e a diferença entre eles</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Sem conta</th>
+<th>Com conta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Onde ficam as suas metas</td>
+<td>Só no aparelho</td>
+<td>No aparelho <strong>e</strong> na nuvem</td>
+</tr>
+<tr>
+<td>O que precisamos saber sobre você</td>
+<td>Nada</td>
+<td>O seu e-mail</td>
+</tr>
+<tr>
+<td>O app fala com servidor</td>
+<td>Não</td>
+<td>Sim, para sincronizar</td>
+</tr>
+</tbody>
+</table>
+<p>Você escolhe. O app abre e funciona sem pedir nada, e a conta fica no menu do
+app, para quem quiser usar o app em mais de um aparelho.</p>
+<h2 id="o-que-fica-no-seu-aparelho">O que fica no seu aparelho</h2>
+<p>Em qualquer um dos dois modos, tudo o que você cria é guardado localmente, num
+banco de dados dentro da área reservada ao aplicativo:</p>
 <ul>
 <li>suas metas e tarefas (descrição, unidade, quantidade, período, cor e ícone);</li>
 <li>as atividades de cada dia e quais você marcou como feitas;</li>
 <li>os horários dos lembretes;</li>
 <li>suas preferências (tema, idioma).</li>
 </ul>
-<p>Esses dados ficam num banco de dados local do próprio aplicativo. <strong>Não existe conta
-de usuário, cadastro, login nem servidor.</strong> Nós não temos acesso a nada disso, e não
-há para onde esses dados serem enviados.</p>
-<h2 id="o-que-o-app-no-faz">O que o app não faz</h2>
+<p><strong>Preferências nunca saem do aparelho</strong>, nem com conta: tema e idioma são
+configuração deste aparelho, não do seu histórico.</p>
+<h2 id="o-que-vai-para-a-nuvem-quando-voc-entra">O que vai para a nuvem quando você entra</h2>
+<p>Só depois de você criar uma conta e entrar:</p>
 <ul>
-<li><strong>Não coleta dados pessoais.</strong> Não pedimos nome, e-mail, telefone, documento,
-localização, contatos, fotos, agenda ou qualquer identificador.</li>
-<li><strong>Não envia dados para lugar nenhum.</strong> O aplicativo não se comunica com servidores
-nossos nem de terceiros. Na versão Android ele sequer pede a permissão de acesso à
-internet.</li>
-<li><strong>Não usa analytics, rastreamento, publicidade nem redes sociais.</strong> Não há SDK de
-terceiros coletando comportamento de uso.</li>
-<li><strong>Não compartilha nem vende dados</strong>, porque não há dado nosso a compartilhar.</li>
-<li><strong>Não usa seus dados para treinar modelos</strong> nem para qualquer outra finalidade
-secundária.</li>
+<li><strong>O seu e-mail.</strong> É o que identifica a conta, e a única informação pessoal que
+pedimos. Não pedimos nome, telefone, documento, data de nascimento,
+localização, contatos, fotos nem agenda.</li>
+<li><strong>As suas metas, tarefas e o registro do que você concluiu</strong>, com as datas.
+São as mesmas informações que já estavam no aparelho.</li>
 </ul>
+<p>Não existe senha: entrar é receber um código de seis dígitos no e-mail e digitá-lo
+no app. Não guardamos senha porque não há senha.</p>
+<p><strong>Onde isso fica:</strong> num banco de dados Postgres hospedado pela <strong>Supabase</strong>, em
+infraestrutura da Amazon Web Services na região de <strong>São Paulo, Brasil</strong>. Cada
+linha pertence a uma conta, e o banco recusa no nível do servidor qualquer
+tentativa de uma conta ler ou escrever dado de outra.</p>
+<h2 id="quem-mais-participa-disso">Quem mais participa disso</h2>
+<p>Duas empresas processam dados por nossa conta, e apenas o necessário para o app
+funcionar:</p>
+<table>
+<thead>
+<tr>
+<th>Quem</th>
+<th>Para quê</th>
+<th>O que recebe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Supabase</strong> (sobre AWS, São Paulo)</td>
+<td>Hospedar o banco de dados e a autenticação</td>
+<td>O seu e-mail e as suas metas</td>
+</tr>
+<tr>
+<td><strong>Resend</strong></td>
+<td>Entregar o e-mail com o código de acesso</td>
+<td>O seu e-mail</td>
+</tr>
+</tbody>
+</table>
+<p>Não há mais ninguém. Não usamos analytics, rastreamento, publicidade, redes
+sociais nem SDK de terceiros que colete comportamento de uso. <strong>Não vendemos nem
+compartilhamos os seus dados</strong>, e não os usamos para treinar modelos nem para
+qualquer finalidade além de fazer o app funcionar para você.</p>
+<h2 id="segurana">Segurança</h2>
+<ul>
+<li>Toda comunicação com a nuvem é por <strong>HTTPS</strong>.</li>
+<li>O banco tem <strong>segurança em nível de linha</strong>: a política de acesso é verificada
+pelo servidor a cada leitura e a cada escrita, por conta.</li>
+<li>O que mantém você conectado fica no <strong>cofre do sistema operacional</strong>
+(Keystore no Android, Keychain no iOS), não em arquivo de preferências.</li>
+<li>O código do e-mail expira em <strong>10 minutos</strong>.</li>
+</ul>
+<h2 id="por-quanto-tempo-guardamos">Por quanto tempo guardamos</h2>
+<ul>
+<li><strong>Enquanto a sua conta existir</strong>, as metas ficam na nuvem — é o que permite
+reinstalar o app e continuar de onde parou.</li>
+<li><strong>Meta excluída</strong> vai para a lixeira do app e pode ser recuperada por <strong>30
+dias</strong>. Depois disso ela é apagada de vez.</li>
+<li>Uma <strong>marca de exclusão</strong> fica na nuvem por até <strong>90 dias</strong> depois disso. Ela
+não contém o conteúdo da meta: serve para que um aparelho que passou tempo
+desligado saiba que aquilo foi apagado, em vez de ressuscitá-lo. Passados os 90
+dias, ela também é apagada, automaticamente.</li>
+</ul>
+<h2 id="excluindo-seus-dados">Excluindo seus dados</h2>
+<ul>
+<li><strong>A conta</strong>: no menu do app, em Conta → Excluir conta. Isso apaga a sua conta e
+<strong>todos os seus dados da nuvem</strong>, na hora e sem pedido por e-mail. Não é
+desativação: a conta deixa de existir.</li>
+<li><strong>Os dados deste aparelho ficam</strong> quando você exclui a conta. Excluir a conta é
+desfazer a nuvem, não abrir mão do seu histórico — ele volta a ser só local,
+como antes de você entrar. Para se desfazer dele, use a lixeira do app ou
+desinstale.</li>
+<li><strong>Tudo</strong>: desinstalar o aplicativo apaga o banco de dados local junto. Você
+também pode limpar os dados do aplicativo nas configurações do aparelho.</li>
+<li><strong>Sair da conta</strong> não apaga nada: é só parar de sincronizar.</li>
+</ul>
+<h2 id="seus-direitos">Seus direitos</h2>
+<p>Você pode, a qualquer momento: acessar os seus dados (eles estão no app, e há
+exportação para arquivo no menu, em Dados), corrigi-los, exportá-los e
+excluí-los. A exclusão da conta é imediata e feita por você mesmo, sem depender
+de nós. Para qualquer dúvida sobre o tratamento dos seus dados, escreva para o
+endereço no fim desta página.</p>
 <h2 id="permisses-que-o-app-pede-e-por-qu">Permissões que o app pede, e por quê</h2>
 <table>
 <thead>
@@ -67,39 +166,32 @@ secundária.</li>
 <td>Vibração</td>
 <td>O aviso do lembrete.</td>
 </tr>
+<tr>
+<td>Internet</td>
+<td>Entrar na conta e sincronizar. Sem conta, o app não faz requisição nenhuma.</td>
+</tr>
 </tbody>
 </table>
 <p>Os lembretes são <strong>locais</strong>: eles são montados e disparados pelo próprio aparelho,
-sem passar por nenhum servidor. O texto do lembrete inclui o nome da sua meta ou
-atividade, então ele pode aparecer na tela bloqueada, conforme a configuração de
-notificações do seu aparelho.</p>
+sem passar por nenhum servidor, com ou sem conta. O texto do lembrete inclui o
+nome da sua meta ou atividade, então ele pode aparecer na tela bloqueada,
+conforme a configuração de notificações do seu aparelho.</p>
 <h2 id="backup-do-seu-aparelho">Backup do seu aparelho</h2>
-<p>Se você tiver backup automático ativado no aparelho (Google Drive no Android, iCloud
-no iOS), o sistema operacional pode incluir os dados do aplicativo nesse backup. Isso
-é feito <strong>pelo sistema, não pelo aplicativo</strong>, e é regido pela política de privacidade
-do provedor do backup — nós não temos acesso a esses arquivos. Você pode desativar o
-backup do aplicativo nas configurações do seu aparelho.</p>
-<h2 id="excluindo-seus-dados">Excluindo seus dados</h2>
-<ul>
-<li><strong>Uma meta</strong>: excluí-la a manda para a lixeira do aplicativo, de onde você pode
-recuperá-la por 30 dias. Passado esse prazo, ela é apagada de vez na abertura
-seguinte do aplicativo.</li>
-<li><strong>Tudo</strong>: desinstalar o aplicativo apaga o banco de dados local junto. Você também
-pode limpar os dados do aplicativo nas configurações do aparelho.</li>
-</ul>
-<p>Como não guardamos nada fora do seu aparelho, não existe pedido de exclusão a nos
-enviar: apagar no aparelho é apagar por completo.</p>
+<p>Se você tiver backup automático ativado no aparelho (Google Drive no Android,
+iCloud no iOS), o sistema operacional pode incluir os dados do aplicativo nesse
+backup. Isso é feito <strong>pelo sistema, não pelo aplicativo</strong>, e é regido pela
+política de privacidade do provedor do backup — nós não temos acesso a esses
+arquivos. Você pode desativar o backup do aplicativo nas configurações do seu
+aparelho.</p>
 <h2 id="crianas">Crianças</h2>
-<p>O aplicativo não é direcionado a crianças e não coleta dados de ninguém — de
-qualquer idade.</p>
+<p>O aplicativo não é direcionado a crianças. Não pedimos idade, e o único dado
+pessoal que o app coleta, de quem cria conta, é o e-mail.</p>
 <h2 id="mudanas-nesta-poltica">Mudanças nesta política</h2>
-<p>Se o aplicativo passar a fazer algo diferente do que está escrito aqui, esta página
-será atualizada <strong>antes</strong> da mudança chegar a você, com a data no topo. Uma versão
-futura com sincronização na nuvem, por exemplo, exigirá uma política nova e o seu
-consentimento explícito.</p>
+<p>Se o aplicativo passar a fazer algo diferente do que está escrito aqui, esta
+página será atualizada <strong>antes</strong> da mudança chegar a você, com a data no topo.</p>
 <h2 id="contato">Contato</h2>
 <p>Dúvidas sobre esta política: <a href="mailto:borcherit.contato@gmail.com">borcherit.contato@gmail.com</a>.</p>
 </main>
-<footer>marco — metas e rotinas pessoais, com os dados no seu aparelho.</footer>
+<footer>marco — metas e rotinas pessoais. Sem conta, os dados ficam no seu aparelho.</footer>
 </body>
 </html>

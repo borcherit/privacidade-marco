@@ -110,7 +110,7 @@ String renderPage(String markdown) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Política de Privacidade — marco</title>
-<meta name="description" content="O marco não coleta dados: tudo o que você cria fica no seu aparelho.">
+<meta name="description" content="O marco funciona por completo sem conta, e sem conta nada sai do seu aparelho. Com conta, ele sincroniza as suas metas entre aparelhos.">
 <meta name="color-scheme" content="dark light">
 <link rel="icon" href="/icone.png" type="image/png">
 <link rel="stylesheet" href="/estilo.css">
@@ -118,7 +118,7 @@ String renderPage(String markdown) {
 <body>
 <main class="janela">
 $body</main>
-<footer>marco — metas e rotinas pessoais, com os dados no seu aparelho.</footer>
+<footer>marco — metas e rotinas pessoais. Sem conta, os dados ficam no seu aparelho.</footer>
 </body>
 </html>
 ''';
