@@ -19,6 +19,7 @@
 /// dart run tool/build.dart            # regenera public/index.html
 /// dart run tool/build.dart --check    # nada é escrito; sai 1 se a página atrasou
 /// dart run tool/build.dart --source=outro/caminho/privacidade.md
+/// dart run tool/build.dart --allow-placeholder   # gera mesmo com campo por preencher
 /// ```
 library;
 
@@ -35,8 +36,17 @@ const defaultSource = '../marco/docs/privacidade.md';
 /// comentário — fica fora do ar.
 const outputDir = 'public';
 
-/// O placeholder do e-mail de contato. A política é pública e o campo fica
-/// visível, então publicar com ele dentro é publicar um rascunho.
+/// O marcador de campo por preencher. A política é pública e o campo fica
+/// visível, então publicar com ele dentro é publicar um rascunho. Hoje ele
+/// aparece na identificação do controlador, que depende da decisão entre CPF e
+/// CNPJ.
+///
+/// Encontrá-lo **aborta a geração**. Até 2026-09-17 isto era só um aviso no
+/// stderr: o gerador escrevia a página com o placeholder dentro e saía com
+/// código 0, de modo que um `dart run tool/build.dart && git push` distraído
+/// publicava o rascunho e o aviso passava no meio da saída. Quem quiser
+/// inspecionar a página antes de preencher usa `--allow-placeholder`, que é
+/// explícito e não cabe por engano num script de publicação.
 const contactPlaceholder = 'PREENCHER';
 
 void main(List<String> args) {
@@ -59,11 +69,21 @@ void main(List<String> args) {
     exit(2);
   }
   final markdown = source.readAsStringSync();
+  if (markdown.contains(contactPlaceholder) &&
+      !args.contains('--allow-placeholder')) {
+    stderr.writeln(
+      'A política ainda tem campo por preencher ($contactPlaceholder) em '
+      '"$sourcePath".\n'
+      'Nada foi escrito: publicar assim põe um rascunho no ar. Preencha no '
+      'Markdown do app, ou passe --allow-placeholder para só inspecionar a '
+      'página localmente.',
+    );
+    exit(3);
+  }
   final page = renderPage(markdown);
   final output = File('$outputDir/index.html');
 
   if (check) {
-    warnAboutPlaceholder(markdown);
     final current = output.existsSync() ? output.readAsStringSync() : null;
     if (current == page) {
       stdout.writeln('${output.path} está em dia com "$sourcePath".');
@@ -78,15 +98,6 @@ void main(List<String> args) {
 
   output.writeAsStringSync(page);
   stdout.writeln('${output.path} ← $sourcePath');
-  warnAboutPlaceholder(markdown);
-}
-
-void warnAboutPlaceholder(String markdown) {
-  if (!markdown.contains(contactPlaceholder)) return;
-  stderr.writeln(
-    'ATENÇÃO: o e-mail de contato ainda é um placeholder '
-    '($contactPlaceholder). Preencha no Markdown do app antes de publicar.',
-  );
 }
 
 /// O Markdown vira o corpo da página; o resto é a moldura, que não muda.
